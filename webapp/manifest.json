@@ -1,0 +1,145 @@
+{
+  "_version": "1.17.0",
+  "sap.app": {
+    "id": "sync.c201.bookcheck",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.7.4",
+      "toolsId": "07b45890-e210-4bf3-a0bc-bab9e5ebde3c"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZGWC2SD1003_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.71.24",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sync.c201.bookcheck.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      },
+      "fcl": {
+        "type": "sap.ui.model.json.JSONModel"
+    }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "sync.c201.bookcheck.view",
+        "controlId": "fcl",
+        "transition": "slide"
+      },
+      "routes": [
+        {
+          "name": "Main",
+          "pattern": ":layout:",
+          "target": [ 
+            "mainView"
+          ]
+        },
+        {
+          "name": "Detail",
+          "pattern": "detail/{layout}/:Custid:",
+          "target": [
+            "mainView",
+            "detailView"
+          ]
+        },
+        {
+          "name": "End",
+          "pattern": "end/{layout}",
+          "target": [
+            "mainView",
+            "detailView",
+            "endView"
+          ]
+        }
+      ],
+      "targets": {
+        "mainView": {
+          "viewName": "Main",
+          "controlAggregation": "beginColumnPages"
+        },
+        "detailView": {
+          "viewName": "Detail",
+          "controlAggregation": "midColumnPages"
+        },
+        "endView": {
+          "viewName": "End",
+          "controlAggregation": "endColumnPages"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sync.c201.bookcheck.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

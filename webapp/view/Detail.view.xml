@@ -1,0 +1,101 @@
+<mvc:View
+    controllerName="sync.c201.bookcheck.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.uxap"
+>
+    <ObjectPageLayout 
+        id="ObjectPageLayout"
+        showTitleInHeaderContent="true"
+        alwaysShowContentHeader="false"
+        preserveHeaderStateOnScroll="false"
+        headerContentPinnable="true"
+        isChildPage="true"
+        upperCaseAnchorBar="false">
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:FlexBox wrap="Wrap"
+                       fitContainer="true"
+                       alignItems="Stretch">
+                <f:Avatar
+                    displayShape="Square"
+                    displaySize="L"
+                    class="sapUiTinyMarginEnd">
+                </f:Avatar>
+            </m:FlexBox>
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection title="Grand SAP Hotel">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:Text text="Grand SAP Hotel 예약내역" />
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+            <ObjectPageSection title="예약 상세내역">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <blocks>
+                            <m:Table
+                                id="suppliersTable"
+                                items="{detail>/}">
+                                <m:columns>
+                                    <m:Column>
+                                        <m:Text text="예약ID" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="고객ID" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="성인인원" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="아동인원" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="도착시간" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="예약날짜" />
+                                    </m:Column>
+                                    <m:Column>
+                                        <m:Text text="결제번호" />
+                                    </m:Column> 
+                                    <m:Column>
+                                        <m:Text text="요청번호" />
+                                    </m:Column>
+                                </m:columns>
+                                <m:items>
+                                    <m:ColumnListItem 
+                                        type="Navigation"
+                                        press="onListPress">
+                                        <m:cells>
+                                            <m:Text text="{detail>Bookid}"/>
+                                            <m:Text text="{detail>Custid}"/>
+                                            <m:Text text="{detail>CustnoA}"/>
+                                            <m:Text text="{detail>CustnoC}"/>
+                                            <m:Text text="{path : 'detail>Eta', type: 'sap.ui.model.odata.type.Time'}"/>
+                                            <m:Text text="{path : 'detail>Bookdat', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy년 MM월 dd일' } }"/>
+                                            <m:Text text="{detail>Paymtid}"/>
+                                            <m:Text text="{detail>Rqstid}"/>
+                                        </m:cells>
+                                    </m:ColumnListItem>
+                                </m:items>
+                            </m:Table>
+                        </blocks>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:View>

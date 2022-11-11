@@ -1,0 +1,166 @@
+<mvc:View controllerName="sync.c201.bookcheck.controller.Main"
+    xmlns="sap.m" 
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:fb="sap.ui.comp.filterbar"
+	height="100%">
+  	<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+			<!-- DynamicPage Title -->
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="Grand SAP Hotel"/>
+					</f:heading>
+					<f:breadcrumbs>
+						<Breadcrumbs>
+						</Breadcrumbs>
+					</f:breadcrumbs>
+					<f:expandedContent>
+						<Label text="일일 예약현황"/>
+					</f:expandedContent>
+					<f:snappedContent>
+						<Label text="일일 예약현황"/>
+					</f:snappedContent>
+					<f:snappedTitleOnMobile>
+						<Title text="Header Title On Phone"/>
+					</f:snappedTitleOnMobile>
+					<f:content>
+						<!-- <GenericTag text="SR"
+							status="Error"
+							press="onGenericTagPress"
+							design="StatusIconHidden">
+							<ObjectNumber number="2"
+								unit="M"
+								emphasized="false"
+								state="Error"/>
+						</GenericTag> -->
+					</f:content>
+					<f:actions>
+						
+					</f:actions>
+					<f:navigationActions>
+						<Button
+								icon="sap-icon://full-screen"
+								type="Transparent" />
+						<Button
+								icon="sap-icon://exit-full-screen"
+								type="Transparent" />
+						<Button
+								icon="sap-icon://decline"
+								type="Transparent" />
+					</f:navigationActions>
+				</f:DynamicPageTitle>
+			</f:title>
+			<!-- DynamicPage Header -->
+			<f:header>
+				<f:DynamicPageHeader pinnable="true">
+					<fb:FilterBar id="filterbar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
+						<fb:filterItems>
+							<fb:FilterItem name="지점" label="지점">
+								<fb:control>
+									<ComboBox
+										id="filterCombobox"
+										name="지점"
+										items="{
+											path: 'view>/plant',
+											templateShareable: true
+										}"
+										placeholder="지점을 입력하세요."
+									>
+										<core:Item key="{view>Plant}" text="{view>Plant}"/>
+									</ComboBox>
+								</fb:control>
+							</fb:FilterItem>
+							<fb:FilterItem name="Category" label="체크인 날짜">
+								<fb:control>
+									<DatePicker
+										id="filterDatePicker"
+										value="{path: 'view>/date', type:'sap.ui.model.type.Date', formatOptions: {UTC: true, pattern: 'yyyy년 MM월 dd일'}  }"
+										placeholder="체크인 날짜를 입력하세요."/>
+								</fb:control>
+							</fb:FilterItem>
+						</fb:filterItems>
+					</fb:FilterBar>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+				<Table id="idProductsTable"
+					   inset="false"
+					   items="{
+							path: '/BookingSet'
+						}"
+					   class="sapFDynamicPageAlignContent"
+					   width="auto">
+					<headerToolbar>
+						<Toolbar>
+							<Title text="예약현황" level="H2"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column
+								width="12em">
+							<Text text="객실ID" />
+						</Column>
+						<Column>
+							<Text text="예약ID" />
+						</Column>
+						<Column
+								minScreenWidth="Tablet"
+								demandPopin="true">
+							<Text text="고객ID" />
+						</Column>
+						<Column
+								minScreenWidth="Tablet"
+								demandPopin="true"
+								>
+							<Text text="체크인 날짜" />
+						</Column>
+						<Column>
+							<Text text="체크아웃 날짜" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem 
+							type="Navigation"
+							press="onListPress">
+							<cells>
+								<ObjectIdentifier
+										title="{Plant}"
+										text="{Roomid}"/>
+								<Text
+										text="{Bookid}" />
+								<Text
+										text="{Custid}" />
+								<Text
+										text="{path: 'Indat', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy년 MM월 dd일' } }" />
+								<Text
+										text="{path: 'Outdat', type:'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy년 MM월 dd일' } }" />
+								<ObjectNumber
+										number="{
+											parts:[{path:'Price'},{path:'CurrencyCode'}],
+											type: 'sap.ui.model.type.Currency',
+											formatOptions: {showMeasure: false}
+										}"
+										unit="{CurrencyCode}" />
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:content>
+			<!-- DynamicPage Footer -->
+			<f:footer>
+				<OverflowToolbar>
+					<Button icon="sap-icon://message-popup"
+							text="{/messagesLength}"
+							type="Emphasized"
+							press="onMessageButtonPress"
+							visible="{= !!${/messagesLength}}"/>
+					<ToolbarSpacer/>
+					<Button type="Accept" text="Accept"/>
+					<Button type="Reject" text="Reject"/>
+				</OverflowToolbar>
+			</f:footer>
+		</f:DynamicPage>
+</mvc:View>
